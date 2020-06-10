@@ -2,8 +2,11 @@ package bildverarbeitung.dotjp.qrcode;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -16,19 +19,19 @@ import com.google.zxing.integration.android.IntentResult;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 public class MainActivity extends AppCompatActivity {
-/*  QR Code Text
+    /*  QR Code Text
 
 
 
 
-APL von Josef Prothmann und David Oliver Taube.
-Studiengang Angewandte Informatik
-6. Semester
+    APL von Josef Prothmann und David Oliver Taube.
+    Studiengang Angewandte Informatik
+    6. Semester
 
-Testbeispiel eines QR Codes
+    Testbeispiel eines QR Codes
 
 
-*/
+    */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,10 +39,12 @@ Testbeispiel eines QR Codes
 
     }
 
-    public void OpenGenerate(View view){
-        new IntentIntegrator(this).initiateScan();
+    public void OpenGenerate(View view) {
+        Intent browserIntent = new Intent(this,Generate.class);
+        startActivity(browserIntent);
     }
-    public void OpenScan(View view){
+
+    public void OpenScan(View view) {
         IntentIntegrator integrator = new IntentIntegrator(this);
         integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE);
         integrator.setPrompt("QR-Code scannen");
@@ -54,14 +59,44 @@ Testbeispiel eines QR Codes
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if(result != null) {
-            if(result.getContents() == null) {
+        if (result != null) {
+            if (result.getContents() == null) {
                 Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
+                Dialog(result.getContents());
+                //Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    private void Dialog(String msg) {
+        String message = msg;
+        if (message.startsWith("http://") || message.startsWith("https://")) {
+            new AlertDialog.Builder(this)
+                    .setTitle("Gescannte Daten")
+                    .setMessage(message)
+                    .setPositiveButton("Webseite besuchen", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    String uri = "";
+                                    if (!message.startsWith("http://") && !message.startsWith("https://")) {
+                                        uri = "http://" + message;
+                                    } else {
+                                        uri = msg;
+                                    }
+                                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                                    startActivity(browserIntent);
+                                }
+                            }
+                    ).setNegativeButton("Schließen", null)
+                    .show();
+        } else {
+            new AlertDialog.Builder(this)
+                    .setTitle("Gescannte Daten")
+                    .setMessage(msg)
+                    .setNegativeButton("Schließen", null)
+                    .show();
         }
     }
 }
