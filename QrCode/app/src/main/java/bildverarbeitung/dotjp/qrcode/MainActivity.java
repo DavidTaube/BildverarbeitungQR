@@ -50,8 +50,10 @@ public class MainActivity extends AppCompatActivity {
         integrator.setPrompt("QR-Code scannen");
         integrator.setCameraId(0);  // Use a specific camera of the device
         integrator.setBeepEnabled(false);
+        integrator.setCaptureActivity(CaptureActivityPortrait.class);
         integrator.setOrientationLocked(true);
         integrator.setBarcodeImageEnabled(true);
+        integrator.setBeepEnabled(true);
         integrator.initiateScan();
     }
 
