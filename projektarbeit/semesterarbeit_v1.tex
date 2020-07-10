@@ -196,11 +196,13 @@ This thesis is facing the generation of an qr codes, with an android application
 	%-----------------------------------------------------------------------------	
 
 \chapter{Einleitung}
-
+QR-Codes spielen aktuell eine große Rolle in der Industrie, Werbewelt und im Datenaustausch. Zwischen dem Text und dem fertigen Code liegen eine Menge an Prozesszierungsschritten die einen nicht bewusst sind.
+In diesem Projekt wurde die Theorie Grundlage zu QR-Codes erläutert und eine einfache Implementierung für ein Android Endgerät entwickelt.
 
 \chapter{Grundlagen}
 \section{QR-Code}
-Quick Response - Code gleichfalls QR-Code genannt ist ein zweidimensionaler Code, der auf Grund seiner automatischen Fehlerkorrektur überaus robust und hierdurch weit verbreitet ist.
+QR-Code steht für Quick Response - Code, was auf deutsch ``schnelle Antwort'' bedeutet, ist ein zweidimensionaler Code, der auf Grund seiner automatischen Fehlerkorrektur überaus robust und hierdurch weit verbreitet ist. 
+Entwickelt wurde dieser im Jahr 1994 im Japan von der Firma n Firma Denso Wave Incorporated, welches eine Tochterfirma von Toyota ist. Der Ursprüngliche Zweck war das Markieren von Teilstücken in der industriellen Fertigung, womit Arbeitsschritte automatisiert werden konnten. Dieser Code kann als eine Weiterentwicklung des EAN-Barcodes, welcher 1977 in Europa eingeführt wurde, gesehen werden. Unterschied dieser beiden Methoden ist die Dimensionale Darstellung ein Barcode gilt als eine 1D Darstellung da es gradlinige Informationsdarstellung getrachtet werden kann. Der QR-Code dagegen besitzt Informationen sowohl in der Horizontalen als auch in der Vertikalen Richtung.
 
 
 Ein QR-Code besteht aus einer quadratischen Matrix aus schwarzen und weißen Quadraten, welche die kodierten Informationen binär darstellen. Spezielle Markierung in drei der vier Ecken des Quadrats geben die Orientierung an. Die Informationen im QR-Code sind mittels einen fehlerkorrigierenden Code ergänzt. Hierdurch wird ein Verlust von bis zu 30 \% des Codes toleriert. Für die Fehlerkorrektur sind Verschiedene Level möglich können folgende 4 Level verwendet werden.
@@ -213,7 +215,6 @@ Ein QR-Code besteht aus einer quadratischen Matrix aus schwarzen und weißen Qua
 
 
 Im Code enthalten sind die Versionsinformation, das benutzte Datenformat und der Datenteil. Dieser beinhaltet die kodierten Informationen in redundanter Beschaffenheit. Zur Feldbegrenzung beinhaltet der QR-Code in ausschließlich drei seiner Ecken ein bestimmtes Muster. Über das fehlende Muster in der vierten Ecke erkennt das Lesegerät die Orientierung. Mit zunehmender Größe des Codes werden alternative Muster hinzugegeben, um die Ausrichtung des Codes besser wahrnehmbar zu schaffen. Zwischen den drei Hauptpositionsmarkierungen steckt eine Linie aus einer Folge streng abwechselnder Bits, worüber sich die Matrix definiert. Wichtig ist gleichermaßen der weiße Rand (Quiet Zone) um den Code in dieser Art von sonstigen Fakten abzukoppeln. 
-\newpage
 \begin{figure}[ht]
 \centering   
 	 \includegraphics[scale=0.12]{pictures/QRCodeBild} 
@@ -245,7 +246,8 @@ Ein DMC besitzt die Fähigkeit bis zu 2335 Alphanumerische Zeichen zu speichern.
 	 \includegraphics[scale=0.5]{pictures/dmc} 
  	\caption{DMC Struktur}
 \end{figure}
-
+\chapter{Konzept}
+Das Hauptaugenmerk soll bei die Generierung und das Auslesen von QR-Codes liegen. Die Applikation soll aus einer Hauptseite bestehen welches zu den jeweiligen Activity Pages führt. Die Generation eines QR-Codes lokal in der Activity geschehen dazu soll ein Text eingebbar sein. Das Auslesen und Entschlüsseln der Informationen des QR-Codes, soll mithilfe der Smartphone Kamera ebenfalls direkt auf dem Endgerät stattfinden.
 \chapter{Implementierung}	
 Im Rahmen dieses Projektes wurden verschiedene Ansätze betrachtet um eine Android Applikation zu entwickeln. Eine eigene Implementierung des QR-Code Generierungsalgorithmus hätte zu viel Ressourcen gekostet. Deswegen wurde eine vorgefertigte Bibliothek \footnote{https://github.com/zxing/zxing} verwendet. 
 \section{Generator}
