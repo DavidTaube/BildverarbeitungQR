@@ -196,9 +196,9 @@
 	
 	%\onehalfspacing 					% 1 1/2-zeilig (package 'setspace')
 \section*{Abstrakt}
-Diese Arbeit beschäftigt sich mit der Generierung von QR Codes, mit einer Android Applikation Implementierung.
+Diese Arbeit beschäftigt sich mit der Generierung von QR Codes und dessen Implementierung in einer Android Applikation.
 \section*{Abstract}
-This thesis is facing the generation of an qr codes, with an android application implementation.
+This thesis is facing the issue of generting qr codes, with an android application implementation.
 \tableofcontents
 \pagenumbering{arabic} 					% Inhaltverzeichnis einf�gen
 	%-----------------------------------------------------------------------------
@@ -206,16 +206,16 @@ This thesis is facing the generation of an qr codes, with an android application
 	%-----------------------------------------------------------------------------	
 
 \chapter{Einleitung}
-QR-Codes spielen aktuell eine große Rolle in der Industrie, Werbewelt und im Datenaustausch. Zwischen dem Text und dem fertigen Code liegen eine Menge an Prozesszierungsschritten die einen nicht bewusst sind.
-In diesem Projekt wurde die Theorie Grundlage zu QR-Codes erläutert und eine einfache Implementierung für ein Android Endgerät entwickelt.
+QR-Codes spielen aktuell eine große Rolle in der Industrie, Werbewelt und im Datenaustausch. Zwischen dem Text und dem fertigen Code liegen eine Menge von Prozessschritten.
+In diesem Projekt wurde die theoretische Grundlage zu QR-Codes erläutert und eine einfache Implementierung für ein Android Endgerät entwickelt.
 
 \chapter{Grundlagen}
 \section{QR-Code}
-QR-Code steht für Quick Response - Code, was auf deutsch ``schnelle Antwort'' bedeutet, ist ein zweidimensionaler Code, der auf Grund seiner automatischen Fehlerkorrektur überaus robust und hierdurch weit verbreitet ist. 
-Entwickelt wurde dieser im Jahr 1994 im Japan von der Firma n Firma Denso Wave Incorporated, welches eine Tochterfirma von Toyota ist. Der Ursprüngliche Zweck war das Markieren von Teilstücken in der industriellen Fertigung, womit Arbeitsschritte automatisiert werden konnten. Dieser Code kann als eine Weiterentwicklung des EAN-Barcodes, welcher 1977 in Europa eingeführt wurde, gesehen werden. Unterschied dieser beiden Methoden ist die Dimensionale Darstellung ein Barcode gilt als eine 1D Darstellung da es gradlinige Informationsdarstellung getrachtet werden kann. Der QR-Code dagegen besitzt Informationen sowohl in der Horizontalen als auch in der Vertikalen Richtung.
+QR-Code (Quick Response - Code, dt.\glqq{}schnelle Antwort\grqq{}) ist ein zweidimensionaler Code, der auf Grund seiner automatischen Fehlerkorrektur überaus robust und deswegen weit verbreitet ist. 
+Entwickelt wurde Dieser im Jahr 1994 in Japan von der Firma \glqq{}Denso Wave Incorporated\grqq{}, einer Tochterfirma von Toyota. Der Ursprüngliche Zweck war das Markieren von Teilstücken in der industriellen Fertigung, womit Arbeitsschritte automatisiert werden konnten. Dieser Code kann als eine Weiterentwicklung des EAN-Barcodes, welcher 1977 in Europa eingeführt wurde, gesehen werden.\\ Unterschied dieser beiden Methoden ist die Dimensionale Darstellung. Ein Barcode gilt als eine 1D Darstellung, da es sich um eine gradlinige Informationsdarstellung handelt. Der QR-Code dagegen besitzt Informationen sowohl in der Horizontalen als auch in der Vertikalen Richtung (Matrix Form).
 
 
-Ein QR-Code besteht aus einer quadratischen Matrix aus schwarzen und weißen Quadraten, welche die kodierten Informationen binär darstellen. Spezielle Markierung in drei der vier Ecken des Quadrats geben die Orientierung an. Die Informationen im QR-Code sind mittels einen fehlerkorrigierenden Code ergänzt. Hierdurch wird ein Verlust von bis zu 30 \% des Codes toleriert. Für die Fehlerkorrektur sind Verschiedene Level möglich können folgende 4 Level verwendet werden.
+Ein QR-Code besteht aus einer 2x2 Matrix aus schwarzen und weißen Quadraten, welche die kodierten Informationen binär darstellen. Spezielle Markierung in drei der vier Ecken des Quadrates, geben die Orientierung an. Die Informationen im QR-Code sind mit einem fehlerkorrigierenden Code angereichert. Hierdurch wird ein Verlust von bis zu 30 \% des Codes toleriert. Für die Fehlerkorrektur sind verschiedene Level von Level eins bis vier möglich.
 \begin{itemize}
 \item Level L (Low) 7\%
 \item Level M (Medium) 15\%
@@ -224,32 +224,33 @@ Ein QR-Code besteht aus einer quadratischen Matrix aus schwarzen und weißen Qua
 \end{itemize}
 
 
-Im Code enthalten sind die Versionsinformation, das benutzte Datenformat und der Datenteil. Dieser beinhaltet die kodierten Informationen in redundanter Beschaffenheit. Zur Feldbegrenzung beinhaltet der QR-Code in ausschließlich drei seiner Ecken ein bestimmtes Muster. Über das fehlende Muster in der vierten Ecke erkennt das Lesegerät die Orientierung. Mit zunehmender Größe des Codes werden alternative Muster hinzugegeben, um die Ausrichtung des Codes besser wahrnehmbar zu schaffen. Zwischen den drei Hauptpositionsmarkierungen steckt eine Linie aus einer Folge streng abwechselnder Bits, worüber sich die Matrix definiert. Wichtig ist gleichermaßen der weiße Rand (Quiet Zone) um den Code in dieser Art von sonstigen Fakten abzukoppeln. 
+Im QR-Code enthalten sind die Versionsinformation, das benutzte Datenformat und der Datenteil. Dieser beinhaltet die kodierten Informationen in redundanter Beschaffenheit. Zur Feldbegrenzung beinhaltet der Code in ausschließlich drei seiner Ecken ein bestimmtes Muster. Über das fehlende Muster in der vierten Ecke erkennt das Lesegerät die Orientierung. Mit zunehmender Größe, werden alternative Muster hinzugegeben, um die Ausrichtung des Codes besser wahrnehmbar zu gestalten. Zwischen den drei Hauptpositionsmarkierungen steckt eine Linie aus einer Folge abwechselnder Bits, worüber sich die Matrix definiert. Wichtig ist gleichermaßen der weiße Rand (Quiet Zone) um den Code in dieser Art von sonstigen Fakten abzukoppeln. 
 \begin{figure}[ht]
 \centering   
 	 \includegraphics[scale=0.12]{pictures/QRCodeBild} 
  	\caption{QR-Code Struktur \cite{qrexapmle}}
 \end{figure}
 
-Ein QR-Code besitzt die Fähigkeit bis zu 4296 Alphanumerische Zeichen zu speichern. QR-Codes werden mehr im öffentlichen Rahmen benutzt, so werden diese für Kommerzielle Zwecke bei Werbungen, Webseiten, Plakaten und ähnlichem benutzt.
+Ein QR-Code besitzt die Fähigkeit bis zu 4296 alphanumerische Zeichen zu speichern.\\ 
+QR-Codes werden beispielsweise im öffentlichen Rahmen für kommerzielle Zwecke wie Werbungen, Webseiten, Plakate und Ähnlichem benutzt.
 
 \subsection{Generierung}
 \begin{enumerate}
 \item Anhand der Länge des Textes und dem Grad der Fehlerkorrektur wird bestimmt, wie groß der QR-Code sein muss. 
 \item Eine weißen Fläche wird erzeugt, auf der nach und nach alle Elemente des QR-Codes dargestellt werden. 
-\item Die Erkennungsmuster, die nicht von dem Text abhängen, werden zuerst auf die Fläche gebracht. Das sind die Positionsmuster, die  Ausrichtungsmuster und die Synchronisationslinien.
+\item Die Erkennungsmuster, die nicht von dem Text abhänig sind, werden zuerst auf die Fläche gebracht. Das sind die Positionsmuster, die  Ausrichtungsmuster und die Synchronisationslinien.
 \item Aus dem Text wird eine Bitfolge generiert.
 \item Zu der Text-Bitfolge wird eine weitere Bitfolge für die Fehlerkorrektur generiert.
-\item Die Text-Bitfolge wird zusammen mit der Fehlerkorrektur-Bitfolge dort in das Feld gezeichnet, wo noch Platz ist. Dies geschieht von rechts nach links in Schlangenlinien.
-\item Um ungefähr gleich viele schwarze und weiße Pixel auf dem QR-Code zu generieren und um Muster zu vermeiden, werden nacheinander acht verschiedene Masken über das Symbol gelegt. Die Maske, welche das beste Ergebnis liefert, wird beibehalten.
+\item Die Text-Bitfolge wird zusammen mit der Fehlerkorrektur-Bitfolge in das Feld gezeichnet.
+\item Um gleich viele Schwarze und weiße Pixel auf dem QR-Code zu generieren und um zufällige Muster zu vermeiden, werden nacheinander acht verschiedene Masken über das Symbol gelegt. Die Maske, welche das beste Ergebnis liefert, wird beibehalten.
 \item Die Kennnummer der verwendeten Maske in das Bild gezeichnet.
 \end{enumerate}
 
-\newpage
 \section{DataMatrix-Code}
-Der DataMatrix-Code bekannter 2D-Code, welches älter als der QR-Code ist. Der äußere Ring zeigt an wie die Matrix einzulesen ist, zur Orietuerung sind zwei schwarze Balken auf der Linken und unteren Seite festgelegt. \cite{matrix}
-Im Gegensatz zum QR-Code ist eine Fehlerkorrektur von bis zu 30\% möglich, es ist nicht möglich weniger als 30\% Fehlerkorrektur einzustellen. Für die Fehlerkorrektur existiert in Kombination mit einem Verfahren zur Fehlererkennung und zwei verschiedenen Verfahren zur Fehlerkorrektur. 
-Ein DMC besitzt die Fähigkeit bis zu 2335 Alphanumerische Zeichen zu speichern. Im Gegensatz zum QR-Code wird der DMC in der Industrie verwendet um Komponenten zu markieren.
+Der DataMatrix-Code (DMC) ist ebenfalls ein 2D-Code, welches älter als der QR-Code ist. \\
+Der äußere Ring zeigt an, wie die Matrix einzulesen ist. Zur Orientierung sind zwei schwarze Balken auf der Linken und unteren Seite festgelegt\cite{matrix}.
+Im Vergleich zum QR-Code ist eine Fehlerkorrektur von genau 30\% möglich.\\
+Ein DMC besitzt die Fähigkeit bis zu 2335 alphanumerische Zeichen zu speichern. Häufig finden die Matrix Codes in der Industrie eine Verwendung, wo sie zum Beispiel als Kennzeichen für bestimmte Produktionsteile dienen und Diese dadurch eindeutig identifizieren.
 
 \begin{figure}[ht]
 \centering   
@@ -257,13 +258,13 @@ Ein DMC besitzt die Fähigkeit bis zu 2335 Alphanumerische Zeichen zu speichern.
  	\caption{DMC Struktur \cite{dmcexample}}
 \end{figure}
 \chapter{Konzept}
-Das Hauptaugenmerk soll bei die Generierung und das Auslesen von QR-Codes liegen. Die Applikation soll aus einer Hauptseite bestehen welches zu den jeweiligen Activity Pages führt. Die Generation eines QR-Codes lokal in der Activity geschehen dazu soll ein Text eingebbar sein. Das Auslesen und Entschlüsseln der Informationen des QR-Codes, soll mithilfe der Smartphone Kamera ebenfalls direkt auf dem Endgerät stattfinden.
+Das Hauptaugenmerk dieses Projekts, soll auf die Generierung und das Auslesen von QR-Codes liegen. Die Applikation soll aus einer Hauptseite bestehen, welchee zu den jeweiligen Activity Pages führt (Generieren und Lesen). Für die Generation eines QR-Codes, soll ein Text eingebbar sein\footnote{beispielsweise eine URL (Uniform Resource Locator)}. Das Auslesen und Entschlüsseln der Informationen, soll mithilfe der Smartphone Kamera direkt auf dem Endgerät stattfinden.
+
 \chapter{Implementierung}	
-Im Rahmen dieses Projektes wurden verschiedene Ansätze betrachtet um eine Android Applikation zu entwickeln. Eine eigene Implementierung des QR-Code Generierungsalgorithmus hätte zu viel Ressourcen gekostet. Deswegen wurde eine vorgefertigte Bibliothek \footnote{https://github.com/zxing/zxing} verwendet. 
+Im Rahmen dieses Projektes wurde eine vorgefertigte Bibliothek\footnote{https://github.com/zxing/zxing} zurückgegriffen, welches es dem Nutzer erleichtert eigene QR Codes zu generieren.
+
 \section{Generator}
-Wie bereits erwähnt wurde für das Generieren in der Applikation eine externe Bibliothek verwendet, diese mach es dem User sehr einfach eigene Codes zu erzeugen. Die Bibliothek ermöglicht das Erstellen von DMC, Barcodes und QR-Codes, sowie das auslesen dieser Codes. In Abbildung 3.1 ist die Startseite der Applikation zu sehen, von dort aus kann man direkt auf die beiden Funktionen (Scannen und Generieren) zugreifen. In Abbildung 3.2 ist ein bereits generierter Code zu sehen. 
-Um einen neuen Code zu generieren muss in das obige Textfeld ein Text eingegeben werden, nachdem auf den ``Generieren''-Button gedrückt wurde wird nach der Generierungsmethode wie in Absatz 2.1.1 beschrieben die Bitmap erstellt und angezeigt.
-\newpage
+Die Bibliothek ermöglicht das Erstellen von DMC, Barcodes und QR-Codes, sowie das auslesen dieser Codes. In Abbildung 3.1 ist die Startseite der Applikation zu sehen, von dort aus lässt sich zu den Beiden Funktionen (Scannen und Generieren) navigieren. In Abbildung 3.2 ist ein bereits generierter Code zu sehen. 
 \begin{figure}[ht]
 \centering
    \begin{minipage}[b]{.4\linewidth} % [b] => Ausrichtung an \caption
@@ -278,10 +279,12 @@ Um einen neuen Code zu generieren muss in das obige Textfeld ein Text eingegeben
 	\caption{Generate Activity}
    \end{minipage}
 \end{figure}
+
+Um einen neuen Code zu generieren, muss in das obige Textfeld ein Text eingegeben werden. Nachdem auf den ``Generieren''-Button gedrückt wurde, wird nach der Generierungsmethode (vergleiche Absatz 2.1.1) die Bitmap erstellt und angezeigt.
 \newpage
 
 \section{Auslesen}
-Für das Auslesen wurde die gleiche Bibliothek wie für das generieren verwendet. Wie in Abbildung 3.3 ist zu sehen wie die Scan-Activity aussieht. Um ein QR-Code abzuscannen ist es nötig dieses vor das helleren Kästchen zu halten. Sobald dieses abgescannt wurde, erklingt ein Scanton und ein Popup mit dem Inhalt des Codes wird angezeigt. Handelt es sich um eine Webseite steht kann diese durch einen einfachen Knopfdruck besucht werden. Sind die beinhalteten Daten reine Informationen so werden diese nur dargestellt. Dies soll dem Nutzer die Möglichkeit bieten vor dem weiterleiten, eine Selbsteinschätzung abzugeben ob diese Webseite vertraulich ist.
+Für das Auslesen wurde die gleiche Bibliothek verwendet. In Abbildung 3.3 ist zu sehen, wie die Scan-Activity aussieht. Sobald der QR-Code abgescannt wurde, erklingt ein akustisches Signal und ein Popup-Fenster mit dem Inhalt des Codes wird angezeigt. Handelt es sich um eine Webseite, kann Diese durch einen einfachen Knopfdruck besucht werden. Sind die beinhalteten Daten reine Informationen so werden diese einfach dargestellt. Dies soll dem Nutzer die Möglichkeit bieten vor dem Weiterleiten, eine Selbsteinschätzung abzugeben, ob die Webseite vertraulich ist.
 \begin{figure}[ht]
 \centering
    \begin{minipage}[b]{.4\linewidth} % [b] => Ausrichtung an \caption
@@ -298,8 +301,8 @@ Für das Auslesen wurde die gleiche Bibliothek wie für das generieren verwendet
 \end{figure}
 \newpage
 \chapter{Schlussfolgerung}
-Gegenüber dem DMC ist der QR-Code weitaus mehr bekannt und besitzt eine Etablierte Rolle, dadurch sind QR-Codes im Rahmen der Werbung sehr Wertvoll und bieten dem Ersteller und Verteiler die Möglichkeit mit wenig Aufwand viel Traffic zu erreichen. 
-Durch vorgefertigte Implementierungen ist es sehr einfach für eigene Projekte solche Codes zu generieren. 
+Gegenüber dem DMC ist der QR-Code weitaus mehr bekannt und hat eine etablierte Rolle in der Öffentlichkeit. Dadurch sind Diese im Rahmen der Werbung sehr Wertvoll und bieten dem Ersteller und Verteiler die Möglichkeit mit wenig Aufwand viel Aufsehen zu erreichen. 
+Durch vorgefertigte Implementierungen und Open Source, ist unkompliziert möglich eigene Projekte solcher Art zu generieren. 
 
 Während der Ausarbeitung dieses Projektes gab es noch keine Signifikanten Hinweise auf einen Nachfolger des QR-Codes. 
 
